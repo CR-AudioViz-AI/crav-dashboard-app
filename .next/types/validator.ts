@@ -47,6 +47,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 }
 
 
+// Validate ../../app/apps/[appId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/apps/[appId]">> = Specific
+  const handler = {} as typeof import("../../app/apps/[appId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/auth/error/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/auth/error">> = Specific
@@ -240,6 +249,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/webhooks/paypal">> = Specific
   const handler = {} as typeof import("../../app/api/webhooks/paypal/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/webhooks/reprocess/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/webhooks/reprocess">> = Specific
+  const handler = {} as typeof import("../../app/api/webhooks/reprocess/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
