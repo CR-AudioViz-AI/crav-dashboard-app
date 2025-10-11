@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
 import { checkRateLimit, webhookRateLimit } from '@/lib/rate-limit';
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.text();
-    const signature = headers().get('stripe-signature');
+    const signature = req.headers.get('stripe-signature');
 
     if (!signature) {
       return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
@@ -109,8 +108,8 @@ async function processStripeEvent(event: any) {
             provider: 'STRIPE',
             externalId: subscriptionId,
             externalCustomerId: customerId,
-            periodStart: new Date(stripeSubscription.current_period_start * 1000),
-            periodEnd: new Date(stripeSubscription.current_period_end * 1000),
+            periodStart: (stripeSubscription as any).current_period_start ? new Date((stripeSubscription as any).current_period_start * 1000) : undefined,
+            periodEnd: (stripeSubscription as any).current_period_end ? new Date((stripeSubscription as any).current_period_end * 1000) : undefined,
           },
         });
 
@@ -254,8 +253,8 @@ async function processStripeEvent(event: any) {
         where: { id: subscription.id },
         data: {
           status: statusMap[stripeSubscription.status] || subscription.status,
-          periodStart: new Date(stripeSubscription.current_period_start * 1000),
-          periodEnd: new Date(stripeSubscription.current_period_end * 1000),
+          periodStart: (stripeSubscription as any).current_period_start ? new Date((stripeSubscription as any).current_period_start * 1000) : undefined,
+          periodEnd: (stripeSubscription as any).current_period_end ? new Date((stripeSubscription as any).current_period_end * 1000) : undefined,
           cancelAtPeriodEnd: stripeSubscription.cancel_at_period_end,
         },
       });

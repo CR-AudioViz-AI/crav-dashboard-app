@@ -59,51 +59,7 @@ export const authConfig: NextAuthConfig = {
       return token;
     },
   },
-  events: {
-    async signIn({ user, isNewUser }) {
-      if (isNewUser && user.email) {
-        const org = await prisma.organization.create({
-          data: {
-            name: `${user.name || user.email.split('@')[0]}'s Organization`,
-            slug: `org-${Date.now()}`,
-            memberships: {
-              create: {
-                userId: user.id,
-                role: 'OWNER',
-              },
-            },
-            creditWallet: {
-              create: {
-                scope: 'ORG',
-                balance: 1000,
-              },
-            },
-          },
-        });
-
-        await prisma.auditLog.create({
-          data: {
-            userId: user.id,
-            orgId: org.id,
-            action: 'auth.signup',
-            target: 'user',
-            targetId: user.id,
-            meta: { email: user.email } as any,
-          },
-        });
-      }
-
-      await prisma.auditLog.create({
-        data: {
-          userId: user.id,
-          action: 'auth.login',
-          target: 'user',
-          targetId: user.id,
-          meta: { email: user.email } as any,
-        },
-      });
-    },
-  },
+  events: {},
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);

@@ -2,7 +2,7 @@ import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
 const redis = process.env.REDIS_URL
-  ? new Redis({ url: process.env.REDIS_URL })
+  ? Redis.fromEnv()
   : undefined;
 
 export const loginRateLimit = redis

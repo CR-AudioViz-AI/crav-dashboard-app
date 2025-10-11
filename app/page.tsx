@@ -1,12 +1,7 @@
 import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth';
 
 export default async function HomePage() {
-  const session = await auth();
-
-  if (!session) {
-    redirect('/auth/signin');
-  }
-
-  redirect('/dashboard');
+  // For now, always redirect to auth
+  // TODO: Check session when auth is configured
+  redirect('/auth/signin');
 }
