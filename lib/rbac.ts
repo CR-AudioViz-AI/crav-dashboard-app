@@ -62,7 +62,7 @@ export async function requireOrg() {
     throw new Error('No organization found');
   }
 
-  return { session, orgId, userId: session.user.id! };
+  return { session, orgId, userId: session.user?.id || '' };
 }
 
 export async function requirePermission(permission: Permission) {
@@ -73,7 +73,7 @@ export async function requirePermission(permission: Permission) {
     throw new Error(`Permission denied: ${permission}`);
   }
 
-  return { session, orgId, userId: session.user.id!, role };
+  return { session, orgId, userId: session.user?.id || '', role };
 }
 
 export async function hasPermission(role: Role, permission: Permission): Promise<boolean> {
