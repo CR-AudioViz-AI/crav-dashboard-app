@@ -10,11 +10,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      # Auth.js / Nodemailer
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       AUTH_URL: ${{ secrets.AUTH_URL }}
       NEXTAUTH_URL: ${{ secrets.AUTH_URL }}
       EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
       EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      # Stripe
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
+      # Misc
       NEXT_TELEMETRY_DISABLED: "1"
 
     steps:
