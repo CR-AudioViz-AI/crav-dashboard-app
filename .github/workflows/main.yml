@@ -9,6 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+      AUTH_URL: ${{ secrets.AUTH_URL }}
+      NEXTAUTH_URL: ${{ secrets.AUTH_URL }}
+      EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      NEXT_TELEMETRY_DISABLED: "1"
 
     steps:
       - name: Checkout
@@ -35,7 +42,7 @@ jobs:
         if: steps.pm.outputs.manager == 'pnpm'
         run: npm i -g pnpm@8
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           if [ "${{ steps.pm.outputs.manager }}" = "pnpm" ]; then pnpm install --frozen-lockfile; fi
           if [ "${{ steps.pm.outputs.manager }}" = "yarn" ]; then corepack enable && yarn install --frozen-lockfile; fi
