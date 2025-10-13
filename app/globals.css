@@ -1,0 +1,257 @@
+/* crav-dashboard-app/app/globals.css */
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------ */
+/*  Design Tokens (Fortune-50)    */
+/* ------------------------------ */
+:root {
+  --brand-50:  #eef6ff;
+  --brand-100: #d9ecff;
+  --brand-200: #baddff;
+  --brand-300: #8ac6ff;
+  --brand-400: #51a6ff;
+  --brand-500: #1e8aff;  /* Primary */
+  --brand-600: #106de6;
+  --brand-700: #0b55b8;
+  --brand-800: #0b4896;
+  --brand-900: #0a3a73;
+
+  --ink-900: #0f172a; /* Title */
+  --ink-800: #111827;
+  --ink-700: #1f2937;
+  --ink-600: #334155;
+  --ink-500: #475569; /* Body */
+  --ink-400: #64748b;
+  --ink-300: #94a3b8;
+  --ink-200: #cbd5e1;
+  --ink-100: #e2e8f0;
+
+  --bg: #f7f9fc;      /* Page background */
+  --card: #ffffff;    /* Card background */
+  --border: #e5e7eb;  /* Subtle borders */
+  --ring: rgba(30,138,255,.4);
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger:  #ef4444;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+}
+
+/* ------------------------------ */
+/*  Base                          */
+/* ------------------------------ */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  font-feature-settings: "cv02","cv03","ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-500);
+}
+
+/* Typography tune for enterprise look */
+h1,h2,h3,h4 {
+  color: var(--ink-900);
+  letter-spacing: -0.01em;
+}
+h1 { font-weight: 800; }
+h2 { font-weight: 700; }
+h3 { font-weight: 700; }
+
+a { color: var(--brand-600); }
+a:hover { color: var(--brand-700); }
+
+/* Focus ring that matches brand */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ------------------------------ */
+/*  Shell / Layout                */
+/* ------------------------------ */
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+/* Top nav bar (Dashboard header) */
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(160%) blur(6px);
+  background: color-mix(in oklab, var(--card) 86%, white 14%);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Main content container */
+.app-main {
+  padding: 24px;
+}
+
+/* Constrain default container */
+.container-narrow {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* ------------------------------ */
+/*  Cards                         */
+/* ------------------------------ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.card-quiet {
+  background: var(--card);
+  border: 1px solid #edf2f7;
+  border-radius: var(--radius-md);
+}
+
+/* Card header rows */
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Subtle separators */
+.hr {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+
+/* ------------------------------ */
+/*  Buttons                       */
+/* ------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s ease;
+}
+
+.btn-primary {
+  background: var(--brand-600);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--brand-700);
+  box-shadow: 0 6px 16px rgba(30,138,255,.25);
+}
+
+.btn-outline {
+  background: white;
+  color: var(--ink-700);
+  border-color: var(--border);
+}
+.btn-outline:hover {
+  border-color: var(--ink-200);
+  background: #fafafa;
+}
+
+/* ------------------------------ */
+/*  Badges                        */
+/* ------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  height: 28px;
+  padding: 0 .7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: var(--ink-600);
+  font-weight: 600;
+  font-size: .78rem;
+}
+
+.badge-live    { background: #ecfeff; border-color: #a5f3fc; color: #0e7490; }
+.badge-warn    { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.badge-danger  { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+
+/* ------------------------------ */
+/*  Tables (polished)             */
+/* ------------------------------ */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.table thead th {
+  text-align: left;
+  background: #f8fafc;
+  color: var(--ink-600);
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.table tbody tr:hover td {
+  background: #fbfdff;
+}
+
+/* ------------------------------ */
+/*  Forms                         */
+/* ------------------------------ */
+.input, .select, .textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .6rem .8rem;
+  background: white;
+  color: var(--ink-700);
+}
+.input:focus, .select:focus, .textarea:focus {
+  border-color: var(--brand-300);
+  box-shadow: 0 0 0 4px var(--ring);
+  outline: none;
+}
+
+/* ------------------------------ */
+/*  Alerts                        */
+/* ------------------------------ */
+.alert {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #f8fafc;
+}
+.alert-success { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+.alert-warn    { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.alert-danger  { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+
+/* ------------------------------ */
+/*  Utility helpers               */
+/* ------------------------------ */
+.shadow-soft { box-shadow: 0 10px 28px rgba(2,6,23,.06); }
+.blurred     { backdrop-filter: saturate(160%) blur(6px); }
