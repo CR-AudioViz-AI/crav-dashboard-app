@@ -1,14 +1,14 @@
 // crav-dashboard-app/app/dashboard/page.tsx
 import Link from "next/link";
 import {
-  Wallet,
-  DollarSign,
-  Grid3X3,
-  Sparkles,
-  ShieldCheck,
-  Star,
-  CreditCard,
   Crown,
+  ShieldCheck,
+  Sparkles,
+  CreditCard,
+  Gauge,
+  Package2,
+  Wallet2,
+  Zap,
 } from "lucide-react";
 
 /* ---------- Small presentational helpers (server-safe) ---------- */
@@ -17,14 +17,19 @@ function Stat({
   label,
   value,
   hint,
+  icon: Icon,
 }: {
   label: string;
   value: string;
   hint?: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }) {
   return (
     <div className="card p-5">
-      <div className="text-sm text-slate-600">{label}</div>
+      <div className="flex items-start justify-between">
+        <div className="text-sm text-slate-600">{label}</div>
+        {Icon ? <Icon className="h-4 w-4 text-slate-400" /> : null}
+      </div>
       <div className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
         {value}
       </div>
@@ -71,7 +76,7 @@ function AppTile({
 /* ---------- Page ---------- */
 
 export default async function DashboardPage() {
-  // Temporary static values; wire to your APIs later.
+  // Temporary static values; wire up to your APIs later.
   const installedApps = 0;
   const planName = "Starter";
   const monthlyCredits = 1000;
@@ -92,7 +97,8 @@ export default async function DashboardPage() {
     },
     {
       name: "Music Builder",
-      blurb: "Compose tracks with AI instruments. Stem export and mastering.",
+      blurb:
+        "Compose tracks with AI instruments. Stem export, mastering, and mixdown.",
       href: "/apps/music-builder",
       free: false,
     },
@@ -116,9 +122,8 @@ export default async function DashboardPage() {
                 Welcome to CRAV Dashboard
               </h1>
               <p className="mt-2 text-slate-600">
-                Unified command center for{" "}
-                <strong>apps</strong>, <strong>credits</strong>, and{" "}
-                <strong>billing</strong>.
+                Unified command center for <strong>apps</strong>,{" "}
+                <strong>credits</strong>, and <strong>billing</strong>.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -143,27 +148,30 @@ export default async function DashboardPage() {
           label="Credit Balance"
           value={creditValue}
           hint={isAdmin ? "No limits for administrators" : "credits available"}
+          icon={Wallet2}
         />
         <Stat
           label="Current Plan"
           value={planName}
           hint={`${monthlyCredits.toLocaleString()} credits/month`}
+          icon={Package2}
         />
         <Stat
           label="Installed Apps"
           value={String(installedApps)}
           hint="across your organization"
+          icon={Sparkles}
         />
-        <Stat label="Avg. Response" value="~120ms" hint="last 24 hours" />
+        <Stat label="Avg. Response" value="~120ms" hint="last 24 hours" icon={Gauge} />
       </section>
 
-      {/* Apps Catalog Preview */}
+      {/* Apps Catalog */}
       <section className="container mx-auto max-w-[1200px] px-4 mt-10">
         <div className="flex items-end justify-between">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-slate-900">
               <span className="inline-flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-blue-600" />
+                <Zap className="h-5 w-5 text-blue-600" />
                 Apps Catalog
               </span>
             </h2>
@@ -191,8 +199,7 @@ export default async function DashboardPage() {
         <div className="card p-6">
           <h3 className="text-xl font-bold text-slate-900">Unified Credits</h3>
           <p className="text-sm md:text-base text-slate-600 mt-1">
-            One balance powers all apps. Share across tools, carry over, and
-            top-up anytime.
+            One balance powers all apps. Share across tools, carry over, and top-up anytime.
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-4">
@@ -206,9 +213,7 @@ export default async function DashboardPage() {
             <div className="card-quiet p-4">
               <div className="text-sm text-slate-600">Projected Usage</div>
               <div className="text-2xl font-bold mt-1">~650</div>
-              <div className="text-xs text-slate-500 mt-1">
-                next 30 days (est.)
-              </div>
+              <div className="text-xs text-slate-500 mt-1">next 30 days (est.)</div>
             </div>
           </div>
 
@@ -224,9 +229,7 @@ export default async function DashboardPage() {
 
         {/* Billing & Payments */}
         <div className="card p-6">
-          <h3 className="text-xl font-bold text-slate-900">
-            Billing & Payments
-          </h3>
+          <h3 className="text-xl font-bold text-slate-900">Billing & Payments</h3>
           <p className="text-sm md:text-base text-slate-600 mt-1">
             Upgrade your plan or purchase credits via Stripe or PayPal.
           </p>
@@ -272,8 +275,7 @@ export default async function DashboardPage() {
                 Supercharge your workflow with connected apps
               </h3>
               <p className="text-sm text-slate-600 mt-1">
-                All apps share credits, assets, and settings. Install one and
-                they work together.
+                All apps share credits, assets, and settings. Install one and they work together.
               </p>
             </div>
             <div className="flex gap-2">
