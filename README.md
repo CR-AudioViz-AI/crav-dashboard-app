@@ -413,3 +413,5 @@ The system is ready for production with real authentication, database, and payme
 <!-- Deploy trigger: 2025-10-25 03:21:37 UTC -->
 
 <!-- Deploy: 2025-10-25 03:27:01 UTC -->
+
+<!-- TEST: Preview deployment - 2025-10-25 03:35:16 UTC -->
