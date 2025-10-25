@@ -415,3 +415,5 @@ The system is ready for production with real authentication, database, and payme
 <!-- Deploy: 2025-10-25 03:27:01 UTC -->
 
 <!-- TEST: Preview deployment - 2025-10-25 03:35:16 UTC -->
+
+<!-- Fix: Added EMAIL env vars - 2025-10-25 12:48:29 UTC -->
