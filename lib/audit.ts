@@ -1,4 +1,5 @@
 import { prisma } from './prisma';
+import { getErrorMessage, logError, formatApiError } from '@/lib/utils/error-utils';
 
 export type AuditAction =
   | 'auth.login'
@@ -52,8 +53,8 @@ export async function createAuditLog({
         userAgent,
       },
     });
-  } catch (error) {
-    console.error('Failed to create audit log:', error);
+  } catch (error: unknown) {
+    logError(\'Failed to create audit log:\', error);
   }
 }
 
